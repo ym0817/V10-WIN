@@ -27,13 +27,29 @@ int main()
 	int* ClassIDs = nullptr;
 	float* Sscore = nullptr;
 
-	ADCModelInferenceImage((char*)ImgPath.c_str(), ConfTH, objNum, &ClassIDs, &Sscore);
-
-	for (int i = 0; i < objNum; i++)
+	for (int n = 0; n < 10; n++)
 	{
-		std::cout << "ClassID " << ClassIDs[i] << ", score " << Sscore[i] << std::endl;
 
+		auto start = std::chrono::steady_clock::now();
+		ADCModelInferenceImage((char*)ImgPath.c_str(), ConfTH, objNum, &ClassIDs, &Sscore);
+		auto end = std::chrono::steady_clock::now();
+		//std::chrono::duration<double> spent = end - start;
+		double spent_ms = std::chrono::duration<double, std::milli>(end - start).count();
+		std::cout << "---------PerImage cost time:    " << spent_ms << "   ms " << std::endl;
+		for (int i = 0; i < objNum; i++)
+		{
+			std::cout << "ClassID " << ClassIDs[i] << ", score " << Sscore[i] << std::endl;
+	
+		}
 	}
+
+	// ADCModelInferenceImage((char*)ImgPath.c_str(), ConfTH, objNum, &ClassIDs, &Sscore);
+
+	// for (int i = 0; i < objNum; i++)
+	// {
+	//	std::cout << "ClassID " << ClassIDs[i] << ", score " << Sscore[i] << std::endl;
+
+	} // 
 
 
 }
