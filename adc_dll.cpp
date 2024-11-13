@@ -2,6 +2,7 @@
 #include "adc.h"
 #include <iostream>
 #include <vector>
+#include<memory>
 using namespace std;
 
 // Detector* g_singleDetector;
