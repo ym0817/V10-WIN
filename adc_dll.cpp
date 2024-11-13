@@ -4,7 +4,8 @@
 #include <vector>
 using namespace std;
 
-Detector* g_singleDetector;
+// Detector* g_singleDetector;
+std::unique_ptr<Detector> g_singleDetector ;
 
 bool LoadADCModel(char* cfgPath, char* weightPath, char* nameList, int threadNum)
 {
@@ -13,7 +14,9 @@ bool LoadADCModel(char* cfgPath, char* weightPath, char* nameList, int threadNum
 	std::string str(cfgPath);
 	int isgpu = std::stoi(str); 
 
-	g_singleDetector = new Detector(weightPath, isgpu, nameList, threadNum);
+	//g_singleDetector = new Detector(weightPath, isgpu, nameList, threadNum);
+	std::unique_ptr<Detector> ptr = std::make_unique<Detector>(weightPath, isgpu, nameList, threadNum);
+        g_singleDetector = std::move(ptr);
 
 	//status = LoadADCModel_Main(cfgPath, weightPath, nameList, threadNum);
 
