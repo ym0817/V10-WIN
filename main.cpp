@@ -52,4 +52,16 @@ int main()
 	} // 
 
 
+	if (ClassIDs != nullptr)
+	{
+		delete ClassIDs;
+		ClassIDs = nullptr;
+	}
+	if( Sscore != nullptr )
+	{
+		delete Sscore;
+		Sscore = nullptr;
+	}
+
+	return 0;
 }
